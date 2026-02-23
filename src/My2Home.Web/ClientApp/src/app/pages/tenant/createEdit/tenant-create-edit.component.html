@@ -1,0 +1,122 @@
+<div class="row">
+  <div class="col-lg-6">
+    <nb-card>
+      <nb-card-header>
+        <div class="row">
+          <div class="col-lg-3">
+            <nav class="navigation">
+              <a href="javascript:void(0)" (click)="goBack()" class="link" aria-label="Back"><i class="icon nb-arrow-thin-left"></i></a>
+            </nav>
+          </div>
+          <div class="col-lg-6">
+            Create Tenant 
+          </div>
+        </div>
+      </nb-card-header>
+      <nb-card-body>
+        <form novalidate (ngSubmit)="create()" [formGroup]="createForm">
+          <!--Hostel-->
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label class="">Hostel</label>
+                <p-dropdown [options]="hostelDropDownList?.results" filterBy="label,value" class="form-control" formControlName="tenantHostelId" [filter]="true"
+                             (onChange)="onHostelChange($event)"></p-dropdown>
+                
+              </div>
+            </div>
+          </div>         
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Tenant name</label>
+                <input type="text" nbInput fullWidth formControlName="tenantName">
+                <span class="help-block" *ngIf="(createForm.get('tenantName').touched || createForm.get('tenantName').dirty) && createForm.get('tenantName').errors">
+                  <span *ngIf="createForm.get('tenantName').errors.required" class="text-danger">
+                    Tenant name is required!.
+                  </span>
+                </span>
+              </div>
+            </div>            
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Tenant mobile</label>
+                <input type="text" nbInput fullWidth placeholder="" formControlName="tenantMobile">
+              </div>
+            </div>
+          </div>          
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Tenant email</label>
+                <input type="text" nbInput fullWidth placeholder="" formControlName="tenantEmail">
+              </div>
+            </div>
+            <!--end tenantEmail -->
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Tenant vehicle number</label>
+                <input type="text" nbInput fullWidth placeholder="" formControlName="tenantVehicleNumber">
+              </div>
+            </div>
+          </div>
+          <!--tenantHomeAddress-->
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>advance deposit( security)</label>
+                <input type="number" nbInput fullWidth placeholder="" formControlName="tenantAdvanceDepositSecurity">
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Tenant emergency person</label>
+                <input type="text" nbInput fullWidth placeholder="" formControlName="tenantEmergencyPerson">
+              </div>
+            </div>
+          </div>
+          <!--end tenantEmergencyPerson -->
+          <div class="row">            
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label>Tenant bed number</label>
+                <p-dropdown [options]="bedDropDownList" filterBy="label,value" class="form-control" formControlName="tenantBedId" [filter]="true"
+                            [required]="true" placeholder="select bed "></p-dropdown>
+                <span class="help-block" *ngIf="(createForm.get('tenantBedId').touched || createForm.get('tenantBedId').dirty) && createForm.get('tenantBedId').errors">
+                  <span *ngIf="createForm.get('tenantBedId').errors.required" class="text-danger">
+                    Tenant bed  is required!.
+                  </span>
+                </span>           
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Tenant status</label>
+                <p-dropdown [options]="tenantStatus" filterBy="label,value" class="form-control" formControlName="tenantStatus" ></p-dropdown>               
+              </div>
+            </div>
+            <!--end tenantStatus -->
+            <!--tenantExtraNote-->
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Tenant extra note</label>
+                <input type="text" nbInput fullWidth placeholder="" formControlName="tenantExtraNote">
+              </div>
+            </div>
+          </div>
+          <!--end tenantExtraNote-->
+          <br />
+          <div class="form-group">
+            <div class="container-btn">
+              <button class="btn-demo" type="submit" [disabled]="!createForm.valid" nbButton hero status="success">Save</button>
+            </div>
+          </div>
+        </form>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
+
+

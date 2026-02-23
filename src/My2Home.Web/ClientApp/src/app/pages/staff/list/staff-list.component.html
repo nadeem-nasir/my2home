@@ -1,0 +1,46 @@
+<div class="row">
+  <div class="col-lg-12">
+    <nb-card>
+      <nb-card-header>
+        <div class="row">
+          <div class="col-lg-3">
+            <nav class="navigation">
+              <a href="javascript:void(0)" (click)="goBack()" class="link" aria-label="Back"><i class="icon nb-arrow-thin-left"></i></a>
+            </nav>
+          </div>
+          <div class="col-lg-3">
+            Staff
+          </div>
+        </div>
+      </nb-card-header>
+      <nb-card-body>
+        <p-table [value]="tableList"  dataKey="userId"  [responsive]="true">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Full Name</th>
+              <th>Email</th>
+              <th class="th-dark th-small"><p style="align-content:center">Action</p></th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-tableRow>
+            <tr [pSelectableRow]="tableRow">
+              <td>{{tableRow.firstName}}</td>
+              <td>{{tableRow.email}}</td>
+              <td>
+                <button type="button" (click)="deleteById(tableRow)" pButton icon="" class="ui-button-danger table-buttons" label="Delete"></button>
+                <button type="button" (click)="lockUser(tableRow)" pButton icon="" class="ui-button-info table-buttons" label="Lock"></button>
+                <button type="button" (click)="unlockUser(tableRow)" pButton icon="" class="ui-button-info table-buttons" label="Unlock"></button>
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="summary" let-tableRow>
+            <div style="text-align:left">             
+              <a class="btn btn-success btn-xs" role="button" [routerLink]="['/pages/staff/register-staff']">register</a>
+            </div>
+          </ng-template>
+        </p-table>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
+  

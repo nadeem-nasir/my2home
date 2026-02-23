@@ -1,0 +1,107 @@
+<div class="row">
+  <div class="col-lg-6">
+    <nb-card>
+      <nb-card-header>
+        <div class="row">
+          <div class="col-lg-1">
+            <nav class="navigation">
+              <a href="javascript:void(0)" (click)="goBack()" class="link" aria-label="Back"><i class="icon nb-arrow-thin-left"></i></a>
+            </nav>
+          </div>
+          <div class="col-lg-9">
+            Beds Rent for tenant
+          </div>
+          
+        </div>
+       
+      </nb-card-header>
+      <nb-card-body>
+        <form novalidate (ngSubmit)="create()" [formGroup]="createForm">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label class="">Hostel</label>
+                <p-dropdown [options]="hostelDropDownList?.results" filterBy="label,value" class="form-control" formControlName="rentHostelId" [filter]="true"
+                            appendTo="body" [required]="true" placeholder="Select a Hostel" ></p-dropdown>
+
+                <span class="help-block" *ngIf="(createForm.get('rentHostelId').touched || createForm.get('rentHostelId').dirty) && createForm.get('rentHostelId').errors">
+                  <span *ngIf="createForm.get('rentHostelId').errors.required" class="text-danger">
+                    Hostel  is required!.
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group" *ngIf="hostelDropDownList?.results.length>0">
+                <label class="">Select Tenant</label>
+                <p-dropdown [options]="hostelDropDownList?.results" filterBy="label,value" class="form-control" formControlName="rentHostelId" [filter]="true"
+                            appendTo="body" [required]="true" placeholder="Select a Tenant" (onChange)="onTenantChange($event)"></p-dropdown>
+
+                <span class="help-block" *ngIf="(createForm.get('rentTenantId').touched || createForm.get('rentTenantId').dirty) && createForm.get('rentTenantId').errors">
+                  <span *ngIf="createForm.get('rentTenantId').errors.required" class="text-danger">
+                    Tenant is required!.
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Rent Month</label>
+
+                <!--<input type="text" nbInput fullWidth formControlName="rentMonth" readonly>-->
+
+                <p-calendar formControlName="rentDateTime" view="month" class="form-control" dateFormat="mm/yy"></p-calendar>
+                <span class="help-block" *ngIf="(createForm.get('rentDateTime').touched || createForm.get('rentDateTime').dirty) && createForm.get('rentDateTime').errors">
+                  <span *ngIf="createForm.get('rentDateTime').errors.required" class="text-danger">
+                    Rent Date is required!.
+                  </span>
+                </span>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Rent Status</label>
+                <p-dropdown [options]="rentStatusList" filterBy="label,value" class="form-control" formControlName="rentStatus"
+                            appendTo="body"></p-dropdown>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Rent Amount</label>
+               <input type="number" nbInput fullWidth formControlName="rentAmount">                
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Tenant</label>
+                <input type="text" nbInput fullWidth formControlName="rentTenantName" readonly>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="form-group">
+                <label>Rent Due Date</label>
+                <p-calendar appendTo="body" formControlName="rentDueDateTime" [autoZIndex]="false" [baseZIndex]="99999999999"
+                            [style]="{'width':'50%', height:'50%'}" class="form-control" dateFormat="mm/dd/yy"></p-calendar>
+
+              </div>
+            </div>
+          </div>
+          <br />
+          <div class="form-group">
+            <div class="container-btn">
+              <button class="btn-demo" type="submit" [disabled]="!createForm.valid" nbButton hero status="success">Save </button>
+            </div>
+          </div>
+        </form>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>

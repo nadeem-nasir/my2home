@@ -1,0 +1,159 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+    <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
+    <IsPackable>false</IsPackable>
+    <SpaRoot>ClientApp\</SpaRoot>
+    <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
+
+    <!-- Set this to true if you enable server-side prerendering -->
+    <BuildServerSideRenderer>false</BuildServerSideRenderer>
+    
+    <!-- 
+    <PreserveCompilationContext>true</PreserveCompilationContext>
+    
+    <AssemblyName>My2Home.Web</AssemblyName>
+    
+    <OutputType>Exe</OutputType>
+    
+    <PackageId>CleanArchitecture.Web</PackageId>
+  -->
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\**\*;Views\**\*;Areas\**\Views;appsettings.json;web.config">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac" Version="4.8.1" />
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.3.0" />
+    <PackageReference Include="AutoMapper" Version="8.0.0" />
+    <PackageReference Include="Dapper" Version="1.60.6" />
+    <PackageReference Include="Mailjet.Api" Version="1.2.2" />
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.1.4" PrivateAssets="all">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.5" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.Web.LibraryManager.Build" Version="1.0.163" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="3.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Don't publish the SPA source files, but do show them in the project files list -->
+    <Content Remove="$(SpaRoot)**" />
+    <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+  </ItemGroup>
+  
+  <Target Name="PrepublishScript" BeforeTargets="PrepareForPublish">
+    
+    <Exec Command="dotnet bundle" />
+  </Target>
+  
+  <ItemGroup>
+    <None Remove="ClientApp\src\app\models\accountModels.ts" />
+    <None Remove="ClientApp\src\app\models\cityModels.ts" />
+    <None Remove="ClientApp\src\app\models\selectitem.ts" />
+    <None Remove="ClientApp\src\app\services\countryService.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <DotNetCliToolReference Include="BundlerMinifier.Core" Version="2.8.391" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\My2Home.Core\My2Home.Core.csproj" />
+    <ProjectReference Include="..\My2Home.Infrastructure\My2Home.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <!-- open id connect-->
+  <ItemGroup>
+    <PackageReference Include="OpenIddict" Version="2.0.0" />
+    <PackageReference Include="OpenIddict.EntityFrameworkCore" Version="2.0.0" />
+    <PackageReference Include="OpenIddict.Mvc" Version="2.0.0" />
+  </ItemGroup>
+  <!--end open id connect -->
+  <ItemGroup>
+    <Folder Include="IdentityViewModels\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="wwwroot\gaas\css\.DS_Store" />
+    <None Include="wwwroot\gaas\css\style.css.map" />
+    <None Include="wwwroot\gaas\fonts\fontawesome-webfont.svg" />
+    <None Include="wwwroot\gaas\fonts\fontawesome-webfont.woff2" />
+    <None Include="wwwroot\gaas\img\.DS_Store" />
+    <None Include="wwwroot\gaas\img\banner\.DS_Store" />
+    <None Include="wwwroot\gaas\img\elements\_DS_Store" />
+    <None Include="wwwroot\gaas\img\testimonials\.DS_Store" />
+    <None Include="wwwroot\gaas\js\.DS_Store" />
+    <None Include="wwwroot\gaas\js\bootstrap.min.js" />
+    <None Include="wwwroot\gaas\js\contact.js" />
+    <None Include="wwwroot\gaas\js\gmaps.min.js" />
+    <None Include="wwwroot\gaas\js\jquery-3.2.1.min.js" />
+    <None Include="wwwroot\gaas\js\jquery.ajaxchimp.min.js" />
+    <None Include="wwwroot\gaas\js\jquery.form.js" />
+    <None Include="wwwroot\gaas\js\jquery.magnific-popup.min.js" />
+    <None Include="wwwroot\gaas\js\jquery.validate.min.js" />
+    <None Include="wwwroot\gaas\js\mail-script.js" />
+    <None Include="wwwroot\gaas\js\popper.js" />
+    <None Include="wwwroot\gaas\js\stellar.js" />
+    <None Include="wwwroot\gaas\js\theme.js" />
+    <None Include="wwwroot\gaas\vendors\animate-css\wow.min.js" />
+    <None Include="wwwroot\gaas\vendors\bootstrap-datepicker\bootstrap-datetimepicker.min.js" />
+    <None Include="wwwroot\gaas\vendors\bootstrap-datepicker\bootstrap-select.js" />
+    <None Include="wwwroot\gaas\vendors\counter-up\jquery.counterup.min.js" />
+    <None Include="wwwroot\gaas\vendors\counter-up\jquery.waypoints.min.js" />
+    <None Include="wwwroot\gaas\vendors\flaticon\Flaticon.svg" />
+    <None Include="wwwroot\gaas\vendors\flaticon\_flaticon.scss" />
+    <None Include="wwwroot\gaas\vendors\flipclock\timer.js" />
+    <None Include="wwwroot\gaas\vendors\isotope\imagesloaded.pkgd.min.js" />
+    <None Include="wwwroot\gaas\vendors\isotope\isotope-min.js" />
+    <None Include="wwwroot\gaas\vendors\jquery-ui\jquery-ui.js" />
+    <None Include="wwwroot\gaas\vendors\lightbox\simpleLightbox.min.js" />
+    <None Include="wwwroot\gaas\vendors\linericon\fonts\Linearicons-Free.svg" />
+    <None Include="wwwroot\gaas\vendors\linericon\fonts\Linearicons-Free.woff2" />
+    <None Include="wwwroot\gaas\vendors\nice-select\js\jquery.nice-select.js" />
+    <None Include="wwwroot\gaas\vendors\nice-select\js\jquery.nice-select.min.js" />
+    <None Include="wwwroot\gaas\vendors\owl-carousel\owl.carousel.min.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\src\app\models\accountModels.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\cityModels.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\models\selectitem.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\services\countryService.ts" />
+  </ItemGroup>
+
+  <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
+    <!-- Ensure Node.js is installed -->
+    <Exec Command="node --version" ContinueOnError="true">
+      <Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
+    </Exec>
+    <Error Condition="'$(ErrorCode)' != '0'" Text="Node.js is required to build and run this project. To continue, please install Node.js from https://nodejs.org/, and then restart your command prompt or IDE." />
+    <Message Importance="high" Text="Restoring dependencies using 'npm'. This may take several minutes..." />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
+  </Target>
+
+  
+  
+  <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
+    <!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
+    
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="ng build --prod" />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="ng build --prod" Condition=" '$(BuildServerSideRenderer)' == 'true' " />
+    
+    <!-- Include the newly-built files in the publish output -->
+    <ItemGroup>
+      <DistFiles Include="$(SpaRoot)dist\**; $(SpaRoot)dist-server\**" />
+      <DistFiles Include="$(SpaRoot)node_modules\**" Condition="'$(BuildServerSideRenderer)' == 'true'" />
+      <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
+        <RelativePath>%(DistFiles.Identity)</RelativePath>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </ResolvedFileToPublish>
+    </ItemGroup>
+  </Target>
+  
+</Project>

@@ -1,0 +1,14 @@
+{
+  // Possible string values reported below. When empty it use ENV variable value or Visual Studio setting.
+  // - Production
+  // - Staging
+  // - Development
+
+  "ASPNETCORE_ENVIRONMENT": ""
+}
+
+//always publish with production
+//Todo:Change different db for staging, production etc ?
+//1. Staging will be our test website
+//2. Production will be final and Production
+//Development will be on local and connected to test database 

@@ -1,0 +1,120 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-126623696-3"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-126623696-3');
+    </script>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="/gaas/img/favicon.png" type="image/png">
+    <title>
+        Hostelzhub - Easy to use
+        hostel management system
+    </title>
+    <meta name="description" content="Easy to use  hostel management system, Stay in a hostel and meet the real world, not the tourist brochure. Read millions of hostel reviews from fellow travellers & book your next adventure today. The only complete guide to hostels worldwide, with real reviews and instant online booking" />
+    <meta name="keywords" content="hostel management software, hostel software, hostel management system ,
+          cloud based hostel management system,Free Industry Specific,Self Custom Setup,No Installation Required,Unlimited Support,Secure User Name and Password Access,Viewed From Any Web Browser,
+    Remote Management,Scalable, No Room/Bed/Transaction Limits,Guest Database Functionality,Availabilty Search, Move Guests With Ease,Simple Check In, Check outs,Payment Processing,Group Functionality,Colour Coded Bed Status,
+    Price Setup,Search Function,Housekeeping Data,Manage Products,Manage Deposits,Multi Currency,Manager Level Access With Password Protection,
+          web based software application used for managing day to day operations of any hostel, A tenant finder and communication app that will allow landlords to find and communicate with potential tenants directly without any dealer. It will also allow tenants to communicate with their existing landlords regarding property issues, maintenance requirements, pay rents, etc
+          hostels, backpacking, budget accommodation, cheap lodgings, bookings, online bookings, hostel bookings, city guides, vacations, student travel, budget travel, hostels, hostel, backpackers, youth hostels, backpacking, cheap, inexpensive, budget, reviews" />
+    <!-- Bootstrap CSS -->
+    <environment names="Development,Staging,Production">
+        <link rel="stylesheet" href="~/gaas/css/bootstrap.css">
+        <link rel="stylesheet" href="~/gaas/vendors/linericon/style.css">
+        <link rel="stylesheet" href="~/gaas/css/font-awesome.min.css">
+        <link rel="stylesheet" href="~/gaas/vendors/owl-carousel/owl.carousel.min.css">
+        <link rel="stylesheet" href="~/gaas/css/magnific-popup.css">
+        <link rel="stylesheet" href="~/gaas/vendors/nice-select/css/nice-select.css">
+        <link rel="stylesheet" href="~/gaas/vendors/animate-css/animate.css">
+        <link rel="stylesheet" href="~/gaas/vendors/flaticon/flaticon.css">
+        <!-- main css -->
+        <link rel="stylesheet" href="~/gaas/css/style.css">
+        <link rel="stylesheet" href="~/css/site.css">
+    </environment>
+</head>
+
+<body>
+
+    <!--================Header Menu Area =================-->
+    <header class="header_area">
+        <div class="main_menu">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <div class="container">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <a class="navbar-brand logo_h" href="#">Hostelzhub</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+                        <ul class="nav navbar-nav menu_nav justify-content-center">
+                            <li class="nav-item active"><a class="nav-link" href="#">Home</a></li>
+                            <li class="nav-item"><a class="nav-link" href="/Home/Index#Features">Features</a></li>
+
+                            @*<li class="nav-item"><a class="nav-link" href="/Home/Index#price">Pricing</a></li>
+                                <li class="nav-item"><a class="nav-link" href="/Home/Index#contact">Contact</a></li>*@
+
+                            <li class="nav-item"><a class="nav-link" href="@Url.Action("Search", "Home")">Search</a></li>
+
+                            <li class="nav-item"><a class="nav-link" href="~/index.html#/auth/login">Login</a></li>
+                            <li class="nav-item"><a class="nav-link" href="~/index.html#/auth/request-password">Forgot Password</a></li>
+                        </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="nav-item"><a href="~/index.html#/auth/register" class="primary_btn text-uppercase">free trial</a></li>
+                        </ul>
+
+
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <!--================Header Menu Area =================-->
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; 2018 - Hostelzhub ZM Technologies</p>
+        </footer>
+    </div>
+
+
+    <!--================End Footer Area =================-->
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <environment names="Development,Staging,Production">
+        <script src="~/gaas/js/jquery-3.2.1.min.js"></script>
+        <script src="~/gaas/js/popper.js"></script>
+        <script src="~/gaas/js/bootstrap.min.js"></script>
+        <script src="~/gaas/js/stellar.js"></script>
+        <script src="~/gaas/js/jquery.magnific-popup.min.js"></script>
+        <script src="~/gaas/vendors/nice-select/js/jquery.nice-select.min.js"></script>
+        <script src="~/gaas/vendors/isotope/imagesloaded.pkgd.min.js"></script>
+        <script src="~/gaas/vendors/isotope/isotope-min.js"></script>
+        <script src="~/gaas/vendors/owl-carousel/owl.carousel.min.js"></script>
+        <script src="~/gaas/js/jquery.ajaxchimp.min.js"></script>
+        <script src="~/gaas/vendors/counter-up/jquery.waypoints.min.js"></script>
+        <script src="~/gaas/vendors/counter-up/jquery.counterup.min.js"></script>
+        <script src="~/gaas/js/mail-script.js"></script>
+        <!--gmaps Js-->
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
+        <script src="~/gaas/js/gmaps.min.js"></script>
+        <script src="~/gaas/js/theme.js"></script>
+    </environment>
+
+    @await RenderSectionAsync("scripts", required: false).ConfigureAwait(false)
+</body>
+</html>

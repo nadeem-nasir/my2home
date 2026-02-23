@@ -1,0 +1,120 @@
+<div class="row">
+  <div class="col-lg-12">
+    <nb-card>
+      <nb-card-header>
+        <div class="row">
+          <div class="col-lg-1">
+            <nav class="navigation">
+              <a href="javascript:void(0)" (click)="goBack()" class="link" aria-label="Back"><i class="icon nb-arrow-thin-left"></i></a>
+            </nav>
+          </div>
+          <div class="col-lg-2">
+            Beds
+          </div>
+          <div class="col-lg-1">
+          </div>
+          <div class="col-lg-4">
+            <p-dropdown [options]="hostelDropDownList?.results" filterBy="label,value" class="" [(ngModel)]="selectedHostelId" [filter]="true"
+                        appendTo="body" placeholder="Select a Hostel" (onChange)="onHostelChange($event)"></p-dropdown>
+          </div>
+        </div>
+      </nb-card-header>
+      <nb-card-body *ngIf="selectedHostelId>0">
+        <p-table [value]="tableList?.results" [paginator]="true" [rows]="rowsPerPage" [totalRecords]="tableList?.pagingInfo?.totalPages"
+                 [lazy]="true" (onLazyLoad)="OnloadListLazy($event)" selectionMode="single"
+                 dataKey="bedNumber" [(selection)]="selectedModel" [responsive]="true"
+                 (onRowSelect)="onRowSelect($event)">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Bed Number</th>
+              <th>Bed Rent</th>
+              <th>Bed Remarks</th>
+              <th class="th-dark th-small"><p style="align-content:center">Delete</p></th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-tableRow>
+            <tr [pSelectableRow]="tableRow">
+              <td>{{tableRow.bedNumber}}</td>
+              <td>{{tableRow.bedRent}}</td>
+              <td>{{tableRow.bedRemarks}}</td>
+
+              <td> <button type="button" (click)="OnDelete(tableRow)"  pButton icon="" class="ui-button-danger" label="Delete"> </button></td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="summary" let-tableRow>
+            <div style="text-align:left">
+              <button type="button" pButton icon="fa fa-plus" (click)="showDialogToCreate()" label="Add"></button>
+            </div>
+          </ng-template>
+        </p-table>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
+<!--Right side-->
+<p-dialog header="Bed" [(visible)]="dialogToCreate" [responsive]="true" showEffect="fade" [baseZIndex]="99999999" [modal]="true" [style]="{'width': '500px', 'overflow':'scroll!important', 'z-index':'9999999!important'}"
+          [contentStyle]="{'overflow':'visible'}">
+  <div class="ui-g ui-fluid">
+    <nb-card>
+
+      <nb-card-body>
+        <form novalidate (ngSubmit)="create()" [formGroup]="createForm">
+          <!--Hostel name-->
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group">
+
+                <label class="">Select Hostel</label>
+                <p-dropdown [options]="hostelDropDownList?.results" filterBy="label,value" class="form-control" formControlName="roomHostelId" [filter]="true"
+                            [required]="true" (onChange)="onChange($event)"></p-dropdown>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group">
+
+                <label class="">Select Room</label>
+                <p-dropdown [options]="roomDropDownList?.results" filterBy="label,value" class="form-control" formControlName="roomId" [filter]="true"
+                            [required]="true" ></p-dropdown>
+              </div>
+            </div>
+          </div>
+          <!--end hostel name-->
+          <!--hostelAddress-->
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Enter bed rent</label>
+                <input type="number" nbInput fullWidth placeholder="" formControlName="bedRent">
+                <span class="help-block" *ngIf="(createForm.get('bedRent').touched || createForm.get('bedRent').dirty) && createForm.get('bedRent').errors">
+                  <span *ngIf="createForm.get('bedRent').errors.required" class="text-danger">
+                    Bed rent is required!.
+                  </span>
+                </span>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Enter bed remarks</label>
+                <input type="text" nbInput fullWidth placeholder="" formControlName="bedRemarks">
+
+              </div>
+
+            </div>
+          </div>
+          <!--end hostelAddress-->
+          <!--hostelContactNumber-->
+          <br />
+          <div class="form-group">
+            <div class="container-btn">
+              <button class="btn-demo" type="submit" [disabled]="!createForm.valid" nbButton hero status="success">Save</button>
+            </div>
+          </div>
+        </form>
+      </nb-card-body>
+    </nb-card>
+  </div>
+
+
+  

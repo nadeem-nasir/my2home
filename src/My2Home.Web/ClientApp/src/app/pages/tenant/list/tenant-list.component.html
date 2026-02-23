@@ -1,0 +1,193 @@
+<div class="row">
+  <div class="col-lg-12">
+    <nb-card>
+      <nb-card-header>
+        <div class="row">
+          <div class="col-lg-1">
+            <nav class="navigation">
+              <a href="javascript:void(0)" (click)="goBack()" class="link" aria-label="Back"><i class="icon nb-arrow-thin-left"></i></a>
+            </nav>
+          </div>
+          <div class="col-lg-2">
+            Tenant name
+          </div>
+          <div class="col-lg-1">
+          </div>
+          <div class="col-lg-4">
+            <p-dropdown [options]="hostelDropDownList?.results" filterBy="label,value" class="" [(ngModel)]="selectedTenantHostelId" [filter]="true"
+                        appendTo="body" placeholder="Select a Hostel" (onChange)="onHostelChange($event)"></p-dropdown>
+          </div>
+        </div>
+      </nb-card-header>
+      <nb-card-body *ngIf="selectedTenantHostelId>0">
+        <p-table [value]="tableList?.results" [paginator]="true" [rows]="rowsPerPage" [totalRecords]="tableList?.pagingInfo?.totalPages"
+                 [lazy]="true" (onLazyLoad)="OnloadListLazy($event)"  [responsive]="true"
+                 dataKey="tenantId">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Tenant name</th>
+              <th>Phone</th>
+              <th>Bed</th>
+              <th>Status</th>
+              <th class="th-dark th-small"><p style="align-content:center">Delete</p></th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-tableRow>
+            <tr [pSelectableRow]="tableRow">
+              <td>{{tableRow.tenantName}}</td>
+              <td>{{tableRow.tenantMobile}}</td>
+              <td>{{tableRow.bedAndRoomNumber}}</td>
+              <td>{{tableRow.tenantStatus}}</td>
+              <td>
+                <button type="button" (click)="OnDelete(tableRow)" pButton icon="" class="ui-button-danger" label="Delete"> </button>
+                <a class="btn btn-info btn-xs table-buttons" role="button" [routerLink]="['/pages/tenant/tenant-create-edit']" [queryParams]="{Id: tableRow.tenantId}">Edit</a>
+
+              </td>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="summary" let-tableRow>
+            <div style="text-align:left">
+              <a class="btn btn-success btn-xs" role="button" [routerLink]="['/pages/tenant/tenant-create-edit']" [queryParams]="{Id: 0}">Add</a>
+
+              <!--<button type="button" pButton icon="fa fa-plus" (click)="showDialogToCreate()" label="Add"></button>-->
+
+            </div>
+          </ng-template>
+        </p-table>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
+
+<!--<p-dialog header="Create Room" [(visible)]="dialogToCreate" [responsive]="true" showEffect="fade" [baseZIndex]="99999999" [modal]="true" [style]="{'width': '500px', 'overflow':'scroll!important', 'z-index':'9999999!important'}"
+          [contentStyle]="{'overflow':'auto', 'max-height':'600px'}">
+  <div class="ui-g ui-fluid">
+    <nb-card>
+      <nb-card-header>
+        <div class="row">
+          <div class="col-sm-6">
+            Create tenant
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group">
+              <div class="container-btn">
+                <button class="btn-demo" type="submit" [disabled]="!createForm.valid" nbButton hero status="success">Save</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nb-card-header>
+      <nb-card-body>
+        <form novalidate (ngSubmit)="create()" [formGroup]="createForm">
+         
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label class="">Hostel</label>
+                <p-dropdown [options]="hostelDropDownList?.results" filterBy="label,value" class="form-control" formControlName="tenantHostelId" [filter]="true"
+                            [required]="true"></p-dropdown>
+                <span class="help-block" *ngIf="(createForm.get('tenantHostelId').touched || createForm.get('tenantHostelId').dirty) && createForm.get('tenantHostelId').errors">
+                  <span *ngIf="createForm.get('tenantHostelId').errors.required" class="text-danger">
+                    Hostel  is required!.
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>tenant Name</label>
+                <input type="text" nbInput fullWidth formControlName="tenantName">
+                <span class="help-block" *ngIf="(createForm.get('tenantName').touched || createForm.get('tenantName').dirty) && createForm.get('tenantName').errors">
+                  <span *ngIf="createForm.get('tenantName').errors.required" class="text-danger">
+                    tenant Name is required!.
+                  </span>
+                </span>
+              </div>
+            </div>
+           
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>tenantMobile</label>
+                <input type="text" nbInput fullWidth placeholder="" formControlName="tenantMobile">
+              </div>
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>tenantEmail</label>
+                <input type="text" nbInput fullWidth placeholder="" formControlName="tenantEmail">
+              </div>
+            </div>
+            
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>tenantVehicleNumber</label>
+                <input type="text" nbInput fullWidth placeholder="" formControlName="tenantVehicleNumber">
+              </div>
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>tenantAdvanceDepositSecurity</label>
+                <input type="text" nbInput fullWidth placeholder="" formControlName="tenantAdvanceDepositSecurity">
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>tenantEmergencyPerson</label>
+                <input type="text" nbInput fullWidth placeholder="" formControlName="tenantEmergencyPerson">
+              </div>
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>activeInActive</label>
+                <input type="text" nbInput fullWidth placeholder="" formControlName="activeInActive">
+              </div>
+            </div>
+            
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>tenantBedId</label>
+                <input type="text" nbInput fullWidth placeholder="" formControlName="tenantBedId">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>tenantStatus</label>
+                <input type="text" nbInput fullWidth placeholder="" formControlName="tenantStatus">
+              </div>
+            </div>
+            
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>tenantExtraNote</label>
+                <input type="text" nbInput fullWidth placeholder="" formControlName="tenantExtraNote">
+              </div>
+            </div>
+          </div>
+          
+          <br />
+          <div class="form-group">
+            <div class="container-btn">
+              <button class="btn-demo" type="submit" [disabled]="!createForm.valid" nbButton hero status="success">Save</button>
+            </div>
+          </div>
+        </form>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</p-dialog>-->
+
+

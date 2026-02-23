@@ -1,0 +1,47 @@
+/*.ui-table{
+  background-color:red;
+  color:red!important;
+}*/
+.navigation .link {
+  text-decoration: none;
+}
+.navigation .icon {
+  font-size: 2rem;
+}
+.navigation .link .icon {
+  font-weight: 600;
+}
+
+.ui-dropdown {
+  width: 100% !important;
+  /*height:100% !important;*/
+}
+
+/*.p-dialog .ui-dialog { 
+  background-color: red;
+}*/
+
+/*.ui-dialog {
+  background-color: #3d3780 !important;
+}*/
+.ui-dialog-content{
+  background-color: #3d3780 !important;
+}
+.ui-dialog-titlebar{
+  background-color: #3d3780 !important;
+}
+
+.ui-dialog-title{
+  color: #ffffff!important
+}
+
+.table-buttons{
+  margin-left:5px!important;
+}
+.table-button-action{
+  margin-bottom:3px!important;
+}
+
+.card-margin {
+  margin-right: 5px
+}

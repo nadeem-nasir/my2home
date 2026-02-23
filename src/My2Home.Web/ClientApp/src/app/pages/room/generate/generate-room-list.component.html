@@ -1,0 +1,138 @@
+<div class="row">
+  <div class="col-lg-6">
+    <nb-card>
+      <nb-card-header>Generate multiple rooms and beds </nb-card-header>
+      <nb-card-body>
+        <form novalidate (ngSubmit)="create()" [formGroup]="createForm">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label class="">Hostel</label>
+                <p-dropdown [options]="hostelDropDownList?.results" filterBy="label,value" class="form-control" formControlName="roomHostelId" [filter]="true"
+                            appendTo="body" [required]="true" placeholder="Select a Hostel"></p-dropdown>
+                <span class="help-block" *ngIf="(createForm.get('roomHostelId').touched || createForm.get('roomHostelId').dirty) && createForm.get('roomHostelId').errors">
+                  <span *ngIf="createForm.get('roomHostelId').errors.required" class="text-danger">
+                    Hostel  is required!.
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+          <!--roomNumber-->
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Starting room number</label>
+                <input type="number" nbInput fullWidth formControlName="roomNumber">
+                <!--<span class="help-block" *ngIf="(createForm.get('roomNumber').touched || createForm.get('roomNumber').dirty) && createForm.get('roomNumber').errors">
+                  <span *ngIf="createForm.get('roomNumber').errors.required" class="text-danger">
+                    roomNumber Name is required!.
+                  </span>
+                </span>-->
+              </div>
+            </div>
+            <!--end roomNumber-->
+            <!--roomFloorNumber-->
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Room floor number</label>
+                <input type="number" nbInput fullWidth placeholder="" formControlName="roomFloorNumber">
+              </div>
+              <span class="help-block" *ngIf="(createForm.get('roomFloorNumber').touched || createForm.get('roomFloorNumber').dirty) && createForm.get('roomFloorNumber').errors">
+                <span *ngIf="createForm.get('roomFloorNumber').errors.required" class="text-danger">
+                  room floor number  is required!.
+                </span>
+                <span *ngIf="createForm.get('roomFloorNumber').errors.pattern" class="text-danger">
+                  Number only.
+                </span>
+              </span>
+            </div>
+          </div>
+          <!--end roomFloorNumber-->
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Room remarks</label>
+                <input type="text" nbInput fullWidth formControlName="roomRemarks">
+              </div>
+            </div>
+            <!--end roomNumber-->
+            <!--roomRent-->
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Room rent</label>
+                <input type="number" nbInput fullWidth placeholder="" formControlName="roomRent">
+              </div>
+              <span class="help-block" *ngIf="(createForm.get('roomRent').touched || createForm.get('roomRent').dirty) && createForm.get('roomRent').errors">
+                <span *ngIf="createForm.get('roomRent').errors.required" class="text-danger">
+                  room rent is required!.
+                </span>
+                <span *ngIf="createForm.get('roomRent').errors.pattern" class="text-danger">
+                  number only!.
+                </span>
+              </span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>How many bed(seat) in a room </label>
+                <input type="number" nbInput fullWidth formControlName="roomNoOfBeds">
+              </div>
+              <span class="help-block" *ngIf="(createForm.get('roomNoOfBeds').touched || createForm.get('roomNoOfBeds').dirty) && createForm.get('roomNoOfBeds').errors">
+                <span *ngIf="createForm.get('roomNoOfBeds').errors.required" class="text-danger">
+                  room number of beds is required!.
+                </span>
+                <span *ngIf="createForm.get('roomNoOfBeds').errors.pattern" class="text-danger">
+                  number only!.
+                </span>
+              </span>
+            </div>
+            <!--end roomNoOfBeds -->
+            <!--roomRentPerBed-->
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Rent per bed</label>
+                <input type="number" nbInput fullWidth placeholder="" formControlName="roomRentPerBed">
+
+              </div>
+              <span class="help-block" *ngIf="(createForm.get('roomRentPerBed').touched || createForm.get('roomRentPerBed').dirty) && createForm.get('roomRentPerBed').errors">
+                <span *ngIf="createForm.get('roomRentPerBed').errors.required" class="text-danger">
+                  room rent per bed is required!.
+                </span>
+                <span *ngIf="createForm.get('roomRentPerBed').errors.pattern" class="text-danger">
+                  number only!.
+                </span>
+              </span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group">
+                <div class="form-group">
+                  <label>How many rooms to create </label>
+                  <input type="number" nbInput fullWidth placeholder="" formControlName="numberOfRoomesToCreate">
+                  <span class="help-block" *ngIf="(createForm.get('numberOfRoomesToCreate').touched || createForm.get('numberOfRoomesToCreate').dirty) && createForm.get('numberOfRoomesToCreate').errors">
+                    <span *ngIf="createForm.get('numberOfRoomesToCreate').errors.required" class="text-danger">
+                      How many rooms to create is required!.
+                    </span>
+                    <span *ngIf="createForm.get('numberOfRoomesToCreate').errors.pattern" class="text-danger">
+                      number only!.
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br />
+          <div class="form-group">
+            <div class="container-btn">
+              <button class="btn-demo" type="submit" [disabled]="!createForm.valid" nbButton hero status="success">Save</button>
+            </div>
+          </div>
+        </form>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
+

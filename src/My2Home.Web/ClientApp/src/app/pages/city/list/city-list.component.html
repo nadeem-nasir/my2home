@@ -1,0 +1,80 @@
+<div class="row">
+  <div class="col-lg-6">
+    <nb-card>
+      <nb-card-header>
+        <div class="row">
+          <div class="col-lg-3">
+            <nav class="navigation">
+              <a href="javascript:void(0)" (click)="goBack()" class="link" aria-label="Back"><i class="icon nb-arrow-thin-left"></i></a>
+            </nav>
+          </div>
+          <div class="col-lg-3">
+            Cities
+          </div>
+        </div>
+      </nb-card-header>
+      <nb-card-body>
+        <p-table [value]="tableList?.results" [paginator]="true" [rows]="rowsPerPage"
+                 [totalRecords]="tableList?.pagingInfo?.totalPages"
+                 [lazy]="true" (onLazyLoad)="OnloadListLazy($event)" selectionMode="single"
+                 [responsive]="true"
+                 dataKey="cityId"
+                 (onRowSelect)="onRowSelect($event)">
+
+          <ng-template pTemplate="header">
+            <tr>
+              <th>City name</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-tableRow>
+            <tr [pSelectableRow]="tableRow">
+              <td>{{tableRow.cityName}}</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </nb-card-body>
+    </nb-card>
+  </div>
+  <!--Right side-->
+  <div class="col-lg-6">
+    <nb-card>
+      <nb-card-header>Create City</nb-card-header>
+      <nb-card-body>
+        <form novalidate (ngSubmit)="create()" [formGroup]="createForm">
+          <!--Name-->
+          <div class="form-group">
+            <label>City name</label>
+            <input type="text" nbInput fullWidth placeholder="enter city name" formControlName="cityName">
+            <span class="help-block" *ngIf="(createForm.get('cityName').touched || createForm.get('cityName').dirty) && createForm.get('cityName').errors">
+              <span *ngIf="createForm.get('cityName').errors.required" class="text-danger">
+                City name is required!.
+              </span>
+            </span>
+          </div>
+          <!--end name-->
+          <!--cityCountryId-->
+          <!--<div class="form-group" *ngIf="countryList">
+            <label class="">Country</label>
+            <p-dropdown [options]="countryList.results" filterBy="label,value" class="form-control"  formControlName="cityCountryId" [filter]="true"
+                          appendTo="body" dataKey="countryId" [required]="true"    ></p-dropdown>
+
+            <span class="help-block" *ngIf="(createForm.get('cityCountryId').touched || createForm.get('cityCountryId').dirty) && createForm.get('cityCountryId').errors">
+              <span *ngIf="createForm.get('cityCountryId').errors.required" class="text-danger">
+                Country name is required!.
+              </span>
+            </span>
+          </div>-->
+          <!--cityCountryId-->
+          <br />
+          <div class="input-group">
+            <div class="container-btn">
+              <button class="btn-demo" type="submit" [disabled]="!createForm.valid" nbButton hero status="success">Save</button>
+            </div>
+          </div>
+        </form>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
+
+<!--[rowsPerPageOptions]="rowsPerPageOptions"-->

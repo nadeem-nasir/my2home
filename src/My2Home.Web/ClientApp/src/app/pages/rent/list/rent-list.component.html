@@ -1,0 +1,267 @@
+<div class="row">
+  <div class="col-lg-12">
+    <nb-card>
+      <nb-card-header>
+        <div class="row">
+          <div class="col-lg-1">
+            <nav class="navigation">
+              <a href="javascript:void(0)" (click)="goBack()" class="link" aria-label="Back"><i class="icon nb-arrow-thin-left"></i></a>
+            </nav>
+          </div>
+          <div class="col-lg-1">
+            Rent
+          </div>
+          <div class="col-lg-1">
+          </div>
+          <div class="col-lg-4">
+            <div class="form-group">
+              <label>Select Hostel</label>
+              <p-dropdown [options]="hostelDropDownList?.results" filterBy="label,value" class="" [(ngModel)]="selectedRoomHostelId"
+                          appendTo="body" placeholder="Select a Hostel"></p-dropdown>
+            </div>
+          </div>
+          <div class="col-lg-3">
+            <div class="form-group">
+              <label>Select Month and year</label>
+              <p-calendar view="month" class="" [(ngModel)]="searchCondition" dateFormat="mm/yy"></p-calendar>
+            </div>
+          </div>
+          <div class="col-lg-2">
+            <label>Click on button</label>
+            <button (click)="OnShowRentClick($event)" type="button" pButton icon="" class="ui-button-info" label="Show"> </button>
+          </div>
+        </div>
+        <h3 *ngIf="selectedRoomHostelId>0">Showing rents of {{tableList?.results[0].rentMonth}}, {{tableList?.results[0].rentYear}}</h3>
+      </nb-card-header>
+      <nb-card-body *ngIf="selectedRoomHostelId> 0">
+        <p-table [value]="tableList?.results" [paginator]="true" [rows]="rowsPerPage" [totalRecords]="tableList?.pagingInfo?.totalRecords"
+                 [lazy]="true" (onLazyLoad)="OnloadListLazy($event)"  [responsive]="true" (onRowSelect)="onRowSelect($event)"
+                 >
+          <ng-template pTemplate="header">
+            
+
+            <tr>
+              
+              <th style="width:10%">Status</th>
+              <th style="width:30%">Tenant Name</th>
+              <th style="width:20%">Bed</th>
+              <th style="width:10%">Amount</th>
+              <th style="width:30%" class="th-dark th-small"><p style="align-content:center">Delete</p></th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-tableRow>
+            <tr [pSelectableRow]="tableRow">
+              
+              <td>{{tableRow.rentStatus}}</td>
+              <td>{{tableRow.rentTenant?.tenantName}}</td>
+              <td>{{tableRow.rentTenant?.bedAndRoomNumber}}</td>
+              <td>{{tableRow.rentAmount}}</td>
+              <td>
+                <button (click)="OnDelete(tableRow)" type="button" pButton icon="" class="ui-button-danger table-button-action" label="Delete"> </button>
+
+                <a class="btn btn-info btn-xs table-buttons" role="button" [routerLink]="['/pages/rent/rent-create-edit']" [queryParams]="{Id: tableRow.rentId}">Edit</a>
+                <button (click)="OnUpdateRentStatus(tableRow)" type="button" pButton icon="" class="ui-button-info table-buttons" label="Mark paid"> </button>
+
+              </td>
+
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="summary" let-tableRow>
+            <div style="text-align:left">
+              <!--<button type="button" pButton icon="fa fa-plus" (click)="showDialogToCreate()" label="Add"></button>-->
+              
+            </div>
+          </ng-template>
+        </p-table>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
+
+<!--Dialog Create or edit Room-->
+<!--  
+<p-dialog header="Create Room" [(visible)]="dialogToCreate" [responsive]="true" showEffect="fade" [baseZIndex]="99999999" [modal]="true" [style]="{'width': '500px', 'overflow':'scroll!important', 'z-index':'9999999!important'}"
+          [contentStyle]="{'overflow':'visible'}">
+  <div class="ui-g ui-fluid">
+    <nb-card>
+      <nb-card-body>
+        <form novalidate (ngSubmit)="create()" [formGroup]="createForm">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label class="">Hostel</label>
+                <p-dropdown [options]="hostelDropDownList?.results" filterBy="label,value" class="form-control" formControlName="roomHostelId" [filter]="true"
+                            [required]="true" placeholder="Select a Hostel"></p-dropdown>
+                <span class="help-block" *ngIf="(createForm.get('roomHostelId').touched || createForm.get('roomHostelId').dirty) && createForm.get('roomHostelId').errors">
+                  <span *ngIf="createForm.get('roomHostelId').errors.required" class="text-danger">
+                    Hostel  is required!.
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Starting room number</label>
+                <input type="text" nbInput fullWidth formControlName="roomNumber">
+                
+              </div>
+            </div>
+            
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Room floor number</label>
+                <input type="text" nbInput fullWidth placeholder="" formControlName="roomFloorNumber">
+              </div>
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Room remarks</label>
+                <input type="text" nbInput fullWidth formControlName="roomRemarks">
+              </div>
+            </div>
+            
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Room rent</label>
+                <input type="text" nbInput fullWidth placeholder="" formControlName="roomRent">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>How many bed(seat) in a room </label>
+                <input type="text" nbInput fullWidth formControlName="roomNoOfBeds">
+              </div>
+            </div>
+            
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Rent per bed</label>
+                <input type="text" nbInput fullWidth placeholder="" formControlName="roomRentPerBed">
+              </div>
+            </div>
+          </div>
+          
+          <br />
+          <div class="form-group">
+            <div class="container-btn">
+              <button class="btn-demo" type="submit" [disabled]="!createForm.valid" nbButton hero status="success">Save</button>
+            </div>
+          </div>
+        </form>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</p-dialog>
+
+    -->
+
+<!--old code -->
+<!--<div class="col-lg-6">
+    <nb-card>
+      <nb-card-header>Create Room </nb-card-header>
+      <nb-card-body>
+        <form novalidate (ngSubmit)="create()" [formGroup]="createForm">
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group">
+                <label class="">Hostel</label>
+                <p-dropdown [options]="hostelDropDownList?.results" filterBy="label,value" class="form-control" formControlName="roomHostelId" [filter]="true"
+                            appendTo="body" [required]="true" placeholder="Select a Hostel" ></p-dropdown>
+                <span class="help-block" *ngIf="(createForm.get('roomHostelId').touched || createForm.get('roomHostelId').dirty) && createForm.get('roomHostelId').errors">
+                  <span *ngIf="createForm.get('roomHostelId').errors.required" class="text-danger">
+                    Hostel  is required!.
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>-->
+<!--roomNumber-->
+<!--<div class="row">
+  <div class="col-sm-6">
+    <div class="form-group">
+      <label>starting room number</label>
+      <input type="text" nbInput fullWidth formControlName="roomNumber">-->
+<!--<span class="help-block" *ngIf="(createForm.get('roomNumber').touched || createForm.get('roomNumber').dirty) && createForm.get('roomNumber').errors">
+  <span *ngIf="createForm.get('roomNumber').errors.required" class="text-danger">
+    roomNumber Name is required!.
+  </span>
+</span>-->
+              
+<!--/div>
+</div>-->
+<!--end roomNumber-->
+<!--roomFloorNumber-->
+<!--<div class="col-sm-6">
+    <div class="form-group">
+      <label>room floor number</label>
+      <input type="text" nbInput fullWidth placeholder="" formControlName="roomFloorNumber">
+    </div>
+  </div>
+</div>-->
+<!--end roomFloorNumber-->
+<!--<div class="row">
+  <div class="col-sm-6">
+    <div class="form-group">
+      <label>room remarks</label>
+      <input type="text" nbInput fullWidth formControlName="roomRemarks">
+    </div>
+  </div>-->
+<!--end roomNumber-->
+<!--roomRent-->
+<!--<div class="col-sm-6">
+    <div class="form-group">
+      <label>room rent</label>
+      <input type="text" nbInput fullWidth placeholder="" formControlName="roomRent">
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-6">
+    <div class="form-group">
+      <label>How many bed(seat) in a room </label>
+      <input type="text" nbInput fullWidth formControlName="roomNoOfBeds">
+    </div>
+  </div>-->
+<!--end roomNoOfBeds -->
+<!--roomRentPerBed-->
+<!--<div class="col-sm-6">
+              <div class="form-group">
+                <label>Rent per bed</label>
+                <input type="text" nbInput fullWidth placeholder="" formControlName="roomRentPerBed">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="form-group">
+                <div class="form-group">
+                  <label>How many rooms to create </label>
+                  <input type="text" nbInput fullWidth placeholder="" formControlName="numberOfRoomesToCreate">
+                  <span class="help-block" *ngIf="(createForm.get('numberOfRoomesToCreate').touched || createForm.get('numberOfRoomesToCreate').dirty) && createForm.get('numberOfRoomesToCreate').errors">
+                    <span *ngIf="createForm.get('numberOfRoomesToCreate').errors.required" class="text-danger">
+                      How many rooms to create is required!.
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br />
+          <div class="form-group">
+            <div class="container-btn">
+              <button class="btn-demo" type="submit" [disabled]="!createForm.valid" nbButton hero status="success">Save</button>
+            </div>
+          </div>
+        </form>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>-->

@@ -1,0 +1,36 @@
+<div class="row">
+  <div class="col-lg-6">
+    <nb-card>
+      <nb-card-header>Update organization info</nb-card-header>
+      <nb-card-body>
+        <form  *ngIf="model" novalidate (ngSubmit)="create()" [formGroup]="createForm">
+          <!--Hostel name-->
+          <div class="form-group">
+            <label>Organization name</label>
+            <input type="text" nbInput fullWidth formControlName="organizationName">
+            <span class="help-block" *ngIf="(createForm.get('organizationName').touched || createForm.get('organizationName').dirty) && createForm.get('organizationName').errors">
+              <span *ngIf="createForm.get('organizationName').errors.required" class="text-danger">
+                organization name is required!.
+              </span>
+            </span>
+          </div>
+          <div class="form-group">
+            <label>Organization address</label>
+            <input type="text" nbInput fullWidth placeholder="" formControlName="organizationAddress">
+          </div>
+          <div class="form-group">
+            <label>Organization phone number</label>
+            <input type="text" nbInput fullWidth placeholder="" formControlName="organizationPhoneNumber">
+          </div>
+          <br />
+          <div class="form-group">
+            <div class="container-btn">
+              <button class="btn-demo" type="submit" [disabled]="!createForm.valid" nbButton hero status="success">Save</button>
+            </div>
+          </div>
+        </form>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
+

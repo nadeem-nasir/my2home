@@ -1,0 +1,193 @@
+<div class="row">
+  <nb-card>
+    <nb-card-header>
+      <div class="row">
+        <div class="col-lg-3">         
+            <nav class="navigation">
+              <a href="javascript:void(0)" (click)="goBack()" class="link" aria-label="Back"><i class="icon nb-arrow-thin-left"></i></a>
+            </nav>          
+          </div>
+          <div class="col-lg-3">
+            Create expense
+          </div>
+        </div>
+    </nb-card-header>
+    <div class="col-lg-10">
+      <nb-card-body>
+        <form novalidate (ngSubmit)="create()" [formGroup]="createForm">
+          <div class="row">
+            <!--right side -->
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Hostel</label>
+                <p-dropdown [options]="hostelDropDownList?.results" filterBy="label,value" class="form-control" formControlName="expenseHostelId" [filter]="true"
+                            [required]="true"></p-dropdown>
+                <span class="help-block" *ngIf="(createForm.get('expenseHostelId').touched || createForm.get('expenseHostelId').dirty) && createForm.get('expenseHostelId').errors">
+                  <span *ngIf="createForm.get('expenseHostelId').errors.required" class="text-danger">
+                    Hostel  is required!.
+                  </span>
+                </span>
+              </div>
+            </div>
+            <!--end ´right side -->
+            <!--left side -->
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Category</label>
+                <p-dropdown [options]="expenseCategoryDropDownList?.results" filterBy="label,value" class="form-control" formControlName="expenseCategoryId" [filter]="true"
+                            [required]="true"></p-dropdown>
+                <span class="help-block" *ngIf="(createForm.get('expenseCategoryId').touched || createForm.get('expenseCategoryId').dirty) && createForm.get('expenseCategoryId').errors">
+                  <span *ngIf="createForm.get('expenseCategoryId').errors.required" class="text-danger">
+                    expense category  is required!.
+                  </span>
+                </span>
+              </div>
+            </div>
+            <!--end left side-->
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Expense Name</label>
+                <input type="text" nbInput fullWidth formControlName="expenseName">
+                <span class="help-block" *ngIf="(createForm.get('expenseName').touched || createForm.get('expenseName').dirty) && createForm.get('expenseName').errors">
+                  <span *ngIf="createForm.get('expenseName').errors.required" class="text-danger">
+                    expense name is required!.
+                  </span>
+                </span>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Expense amount</label>
+                <input type="number" nbInput fullWidth placeholder="" formControlName="expenseAmount">
+                <span class="help-block" *ngIf="(createForm.get('expenseAmount').touched || createForm.get('expenseAmount').dirty) && createForm.get('expenseAmount').errors">
+                  <span *ngIf="createForm.get('expenseAmount').errors.required" class="text-danger">
+                    expense amount is required!.
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Expense description</label>
+                <input type="text" nbInput fullWidth placeholder="" formControlName="expenseDescription">
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Expense Date </label>
+                <!--<input type="text" nbInput fullWidth placeholder="" formControlName="expenseCategoryId">-->
+                <!--<input nbInput
+         placeholder="Form Picker"
+         [nbDatepicker]="formpicker" style="z-index:99999999999999">
+  <nb-datepicker #formpicker style="z-index:99999999999999"></nb-datepicker>-->
+                <p-calendar formControlName="expenseCreatedOn" class="form-control" dateFormat="mm/dd/yy"></p-calendar>
+                <span class="help-block" *ngIf="(createForm.get('expenseCreatedOn').touched || createForm.get('expenseCreatedOn').dirty) && createForm.get('expenseCreatedOn').errors">
+                  <span *ngIf="createForm.get('expenseCreatedOn').errors.required" class="text-danger">
+                    expense date is required!.
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+          <br />
+          <div class="form-group">
+            <div class="container-btn">
+              <button class="btn-demo" type="submit" [disabled]="!createForm.valid" nbButton hero status="success">Save</button>
+            </div>
+          </div>
+        </form>
+      </nb-card-body>
+    </div>
+    <div class="col-lg-1"></div>
+  </nb-card>
+</div>
+<!--end left side -->
+<!--Right side or in popup-->
+<!--<p-dialog header="Create Room" [(visible)]="dialogToCreate" [responsive]="true" showEffect="fade" [baseZIndex]="99999999" [modal]="true" [style]="{'width': '500px', 'overflow':'scroll!important', 'z-index':'9999999!important'}"
+          [contentStyle]="{'overflow':'visible'}">
+  <div class="ui-g ui-fluid">
+    <nb-card>
+      <nb-card-header>Create Expense</nb-card-header>
+      <nb-card-body>
+        <form novalidate (ngSubmit)="create()" [formGroup]="createForm">
+          <div class="row">
+
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Hostel</label>
+                <p-dropdown [options]="hostelDropDownList?.results" filterBy="label,value" class="form-control" formControlName="expenseHostelId" [filter]="true"
+                             [required]="true"></p-dropdown>
+                <span class="help-block" *ngIf="(createForm.get('expenseHostelId').touched || createForm.get('expenseHostelId').dirty) && createForm.get('expenseHostelId').errors">
+                  <span *ngIf="createForm.get('expenseHostelId').errors.required" class="text-danger">
+                    Hostel  is required!.
+                  </span>
+                </span>
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Category</label>
+                <p-dropdown [options]="expenseCategoryDropDownList?.results" filterBy="label,value" class="form-control" formControlName="expenseCategoryId" [filter]="true"
+                             [required]="true"></p-dropdown>
+                <span class="help-block" *ngIf="(createForm.get('expenseCategoryId').touched || createForm.get('expenseCategoryId').dirty) && createForm.get('expenseCategoryId').errors">
+                  <span *ngIf="createForm.get('expenseCategoryId').errors.required" class="text-danger">
+                    expense Category  is required!.
+                  </span>
+                </span>
+              </div>
+            </div>
+
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>expenseName Name</label>
+                <input type="text" nbInput fullWidth formControlName="expenseName">
+                <span class="help-block" *ngIf="(createForm.get('expenseName').touched || createForm.get('expenseName').dirty) && createForm.get('expenseName').errors">
+                  <span *ngIf="createForm.get('expenseName').errors.required" class="text-danger">
+                    expense name is required!.
+                  </span>
+                </span>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>expenseAmount</label>
+                <input type="text" nbInput fullWidth placeholder="" formControlName="expenseAmount">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>expenseDescription</label>
+                <input type="text" nbInput fullWidth placeholder="" formControlName="expenseDescription">
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>expenseCategoryId</label>
+
+                <input nbInput
+                       placeholder="Form Picker"
+                       [nbDatepicker]="formpicker" style="z-index:99999999999999">
+                <nb-datepicker #formpicker style="z-index:99999999999999"></nb-datepicker>
+
+              </div>
+            </div>
+          </div>
+          <br />
+          <div class="form-group">
+            <div class="container-btn">
+              <button class="btn-demo" type="submit" [disabled]="!createForm.valid" nbButton hero status="success">Save</button>
+            </div>
+          </div>
+        </form>
+      </nb-card-body>
+    </nb-card>
+  </div>-->

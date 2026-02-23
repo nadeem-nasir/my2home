@@ -1,0 +1,59 @@
+﻿@model My2Home.Web.ApiModels.HostelSearchViewModel
+@using My2Home.Web.Extensions
+<div class="container">
+    <div class="section-top-border">
+        <div class="row">
+            <div class="col-lg-8 col-md-8">
+                <h3 class="mb-30 title_color">Search hostels</h3>
+                <form asp-controller="Home" asp-action="Search">
+                    <div class="mt-10">
+                        <select asp-for="SelectedCity"
+                                asp-items="@(new SelectList(Model.CityList,"Value","Label"))" class="single-input">
+                            <option>Please select one</option>
+                        </select>
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                    <input type="submit" class="genric-btn success" />
+                </form>
+            </div>
+        </div>
+    </div>
+    <section class="blog_area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-9">
+                    @foreach (var row in Model.HostelList.ToArray().Split(3))
+                    {
+                    <div class="row">
+                        @foreach (var article in row)
+                        {
+                            <div class="col-lg-3 card card-margin">
+                                <h1>@article.HostelName</h1>
+                                <div class="card-body">
+                                    <h5 class="card-title">@article.HostelContactNumber</h5>
+                                    <h5 class="card-title">@article.HostelContactPersonName</h5>
+                                    <p class="card-text">@article.HostelAddress</p>
+                                </div>
+                            </div>
+                        }
+                            <br />
+                    </div>
+                        <br /><br />
+                    }
+                    
+                </div>
+                <div class="col-lg-3">
+                    <div class="blog_right_sidebar">
+                        <aside class="single_sidebar_widget popular_post_widget">
+                            <h3 class="widget_title">Popular Hostels</h3>
+                        </aside>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!--https://colorlib.com/wp/template/gaas/-->

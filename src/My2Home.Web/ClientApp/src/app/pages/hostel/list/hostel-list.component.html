@@ -1,0 +1,131 @@
+<div class="row">
+  <div class="col-lg-6">
+    <nb-card>
+      <nb-card-header>
+        <div class="row">
+          <div class="col-lg-3">
+            <nav class="navigation">
+              <a href="javascript:void(0)" (click)="goBack()" class="link" aria-label="Back"><i class="icon nb-arrow-thin-left"></i></a>
+            </nav>
+          </div>
+          <div class="col-lg-3">
+            Hostel
+          </div>
+        </div>
+      </nb-card-header>
+      <nb-card-body>
+        <p-table [value]="tableList?.results" [paginator]="true" [rows]="rowsPerPage" [totalRecords]="tableList?.pagingInfo?.totalPages"
+                 [lazy]="true" (onLazyLoad)="OnloadListLazy($event)" selectionMode="single"
+                 dataKey="hostelId" [(selection)]="selectedModel" [responsive]="true"
+                 (onRowSelect)="onRowSelect($event)">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>Hostel name</th>
+              
+              <th class="th-dark th-small"><p style="align-content:center">Delete</p></th>
+
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-tableRow>
+            <tr [pSelectableRow]="tableRow">
+              <td>{{tableRow.hostelName}}</td>
+                        
+              <td>
+                <button (click)="OnDelete(tableRow)" type="button" pButton icon="" class="ui-button-danger" label="Delete"></button>                
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </nb-card-body>
+    </nb-card>
+  </div>
+  <!--Right side-->
+  <div class="col-lg-6">
+    <nb-card>
+      <nb-card-header>Create hostel</nb-card-header>
+      <nb-card-body>
+        <form novalidate (ngSubmit)="create()" [formGroup]="createForm">
+          <!--Hostel name-->
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Hostel name</label>
+                <input type="text" nbInput fullWidth formControlName="hostelName">
+                <span class="help-block" *ngIf="(createForm.get('hostelName').touched || createForm.get('hostelName').dirty) && createForm.get('hostelName').errors">
+                  <span *ngIf="createForm.get('hostelName').errors.required" class="text-danger">
+                    Hostel name is required!.
+                  </span>
+                </span>
+              </div>
+            </div>
+            <!--end hostel name-->
+            <!--hostelAddress-->
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Hostel address</label>
+                <input type="text" nbInput fullWidth placeholder="" formControlName="hostelAddress">
+              </div>
+            </div>
+          </div>
+          <!--end hostelAddress-->
+          <!--hostelContactNumber-->
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Hostel contact number</label>
+                <input type="text" nbInput fullWidth placeholder="" formControlName="hostelContactNumber">
+              </div>
+            </div>
+            <!--end hostelContactNumber -->
+            <!--hostelContactNumber2-->
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Hostel contact number2</label>
+                <input type="text" nbInput fullWidth placeholder="" formControlName="hostelContactNumber2">
+              </div>
+            </div>
+          </div>
+          <!--end hostelContactNumber2 -->
+          <!--hostelContactPersonName-->
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Hostel contact person name</label>
+                <input type="text" nbInput fullWidth placeholder="" formControlName="hostelContactPersonName">
+              </div>
+            </div>
+            <!--end hostelContactPersonName-->
+            <!--hostelContactPersonName2-->
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>Hostel contact person name2</label>
+                <input type="text" nbInput fullWidth placeholder="" formControlName="hostelContactPersonName2">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label>City</label>
+                <p-dropdown [options]="cityDropDownList?.results" filterBy="label,value" class="form-control" formControlName="hostelCityId" [filter]="true"
+                            appendTo="body" placeholder="Select a City"></p-dropdown>
+                <span class="help-block" *ngIf="(createForm.get('hostelCityId').touched || createForm.get('hostelCityId').dirty) && createForm.get('hostelCityId').errors">
+                  <span *ngIf="createForm.get('hostelCityId').errors.required" class="text-danger">
+                    City is required!.
+                  </span>
+                </span>
+              </div>
+            </div>
+          </div>
+          <!--end hostelContactPersonName2 -->
+          <br />
+          <div class="form-group">
+            <div class="container-btn">
+              <button class="btn-demo" type="submit" [disabled]="!createForm.valid" nbButton hero status="success">Save</button>
+            </div>
+          </div>
+        </form>
+      </nb-card-body>
+    </nb-card>
+  </div>
+</div>
